@@ -1,20 +1,3 @@
-# import pyshorteners
-
-# # URL shorting function
-# def shorten_url(url):
-#     # Initialize the Shortener object
-#     s = pyshorteners.Shortener()
-
-#     # Shorten the URL
-#     shortened_url = s.tinyurl.short(url)
-
-#     return shortened_url
-
-
-# url_value=input("Enter the URL:")
-# print("Shortened URL:",shorten_url(url_value))
-
-
 import pyshorteners
 import tkinter as tk
 
@@ -31,6 +14,15 @@ def shorten_url():
     # Update the result label with the shortened URL
     result_label.config(text=shortened_url)
 
+# Copy the shortened URL to the clipboard
+def copy_to_clipboard():
+    window.clipboard_clear()  # Clear clipboard contents
+    # Copy to clipboard
+    window.clipboard_append(result_label.cget("text"))
+    messagebox.showinfo("Copied!", "The shortened URL has been copied to the clipboard.")
+
+
+
 # Create the main window
 window = tk.Tk()
 window.title("URL Shortener")
@@ -46,6 +38,10 @@ button_shorten.pack()
 # Create a label to display the result
 result_label = tk.Label(window, text="")
 result_label.pack(pady=10)
+
+# Button to copy the url
+button_copy = tk.Button(window, text="Copy", command=copy_to_clipboard)
+button_copy.pack()
 
 # Start the GUI main loop
 window.mainloop()
